@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root {
+    --scale: 0.5;
+}
+
+
+
+
+
+
+
+
+/* COMPONENT CHARACTER */
+.character {
+    width: calc(260px * var(--scale));
+    height: calc(340px * var(--scale));
+    position: relative;
+    overflow: hidden;
+}
+
+.character_spritesheet {
+    width: calc(1300px * var(--scale));
+    height: calc(1020px * var(--scale));
+    position: absolute;
+    animation: spriteAnimation 1s steps(5) infinite; 
+}
+
+.pixelart {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.pose-push {
+    top: calc(-340px * var(--scale));
+}
+
+.pose-pull {
+    top: calc(-680px * var(--scale));
+}
+
+
+@keyframes spriteAnimation {
+    from {
+        transform: translate3d(0px, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+
+
