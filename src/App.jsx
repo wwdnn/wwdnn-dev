@@ -10,7 +10,7 @@ export default function App() {
     return (
         <CarouselProvider total={PROJECTS.length}>
             <Carousel />
-            <Floor />
+            {/* <Floor /> */}
         </CarouselProvider>
     );
 }

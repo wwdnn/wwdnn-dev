@@ -8,7 +8,6 @@ import {
 
 
 
-
 const CarouselContext = createContext(null);
 export function CarouselProvider({ total, children }) {
     const [active, setActive] = useState(0);
