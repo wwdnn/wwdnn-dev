@@ -32,7 +32,7 @@ export function Carousel() {
 
     return (
         <div className="carousel-container">
-            <div className="cards-container">
+            <div className="cards-container" id="projects">
                 {PROJECTS.map((project, index) => {
                     const isActive = index === active;
                     const offset = getCardOffset(index);

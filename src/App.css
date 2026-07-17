@@ -48,6 +48,186 @@ html, body, #root {
     --glass-shadow-spread: 40px;
 }
 
+/* COMPONENT HERO OVERLAY */
+.hero-overlay {
+    position: fixed;
+    inset: 2rem 3rem auto;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: minmax(260px, 390px) minmax(320px, 560px) minmax(260px, 1fr);
+    align-items: start;
+    gap: 1.5rem;
+    pointer-events: none;
+}
+
+.player-card,
+.hero-copy {
+    pointer-events: auto;
+}
+
+.player-card {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid rgb(var(--rgb-primary) / 0.28);
+    border-radius: 8px;
+    background: rgb(var(--rgb-surface) / 0.78);
+    box-shadow:
+        0 10px 28px rgb(var(--rgb-slate-deep) / 0.12),
+        4px 4px 0 rgb(var(--rgb-primary) / 0.12);
+    backdrop-filter: blur(8px);
+}
+
+.player-avatar {
+    width: 86px;
+    height: 86px;
+    border: 2px solid rgb(var(--rgb-primary) / 0.16);
+    border-radius: 8px;
+    background: rgb(var(--rgb-surface) / 0.55);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 500% 300%;
+}
+
+.player-info {
+    min-width: 0;
+    display: grid;
+    align-content: center;
+    gap: 0.35rem;
+}
+
+.player-name,
+.hero-copy h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.player-name {
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.player-role {
+    font-family: var(--font-body);
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+.player-meter {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-muted);
+}
+
+.player-exp {
+    height: 14px;
+    padding: 2px;
+    border: 1px solid rgb(var(--rgb-primary) / 0.6);
+    border-radius: var(--radius-pill);
+    background: rgb(var(--rgb-surface) / 0.5);
+}
+
+.player-exp span {
+    display: block;
+    width: 74%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, rgb(var(--rgb-primary-bright)), rgb(var(--rgb-indigo)));
+}
+
+.hero-copy {
+    isolation: isolate;
+    position: absolute;
+    top: 7.2rem;
+    left: 50%;
+    width: min(620px, calc(100vw - 2rem));
+    padding-inline: 1rem;
+    text-align: center;
+    transform: translateX(-50%);
+}
+
+.hero-copy::before {
+    content: "";
+    position: absolute;
+    inset: -1rem -1.2rem;
+    z-index: -1;
+    background: radial-gradient(ellipse at 35% 42%, rgb(var(--rgb-surface) / 0.3), transparent 64%);
+    filter: blur(10px);
+}
+
+.hero-kicker {
+    margin-bottom: 0.7rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgb(var(--rgb-primary-bright) / 0.9);
+    text-shadow: 0 2px 12px rgb(var(--rgb-surface) / 0.8);
+}
+
+.hero-copy h1 {
+    font-size: clamp(2.2rem, 4vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: 1.4rem;
+    text-shadow:
+        0 2px 0 rgb(var(--rgb-surface) / 0.52),
+        0 12px 32px rgb(70 115 180 / 0.22);
+}
+
+.hero-copy p:not(.hero-kicker) {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.6;
+    color: var(--color-text);
+    text-shadow:
+        0 1px 0 rgb(var(--rgb-surface) / 0.64),
+        0 8px 24px rgb(var(--rgb-surface) / 0.52);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-button {
+    min-width: 150px;
+    padding: 0.85rem 1.2rem;
+    border: 2px solid rgb(var(--rgb-primary) / 0.52);
+    border-radius: 8px;
+    background: rgb(var(--rgb-surface) / 0.42);
+    color: rgb(var(--rgb-primary-bright));
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    box-shadow:
+        4px 4px 0 rgb(var(--rgb-primary) / 0.12),
+        0 10px 24px rgb(var(--rgb-surface) / 0.2);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+}
+
+.hero-button-primary {
+    background: linear-gradient(135deg, rgb(var(--rgb-primary-bright) / 0.92), rgb(var(--rgb-indigo) / 0.82));
+    color: var(--color-surface);
+}
+
+.hero-button:disabled {
+    opacity: 0.72;
+    cursor: not-allowed;
+}
+
 .carousel-container {
     position: relative;
     z-index: 1;
@@ -213,10 +393,41 @@ html, body, #root {
     overflow: hidden;
 }
 
+.character-shadow {
+    position: absolute;
+    z-index: 0;
+    bottom: calc(7px * var(--scale));
+    left: 50%;
+    width: calc(118px * var(--scale));
+    height: calc(15px * var(--scale));
+    border-radius: 50%;
+    background: rgb(17 24 39 / 0.24);
+    filter: blur(calc(4px * var(--scale)));
+    transform: translateX(-50%);
+    transition: left 650ms ease, width 650ms ease, transform 650ms ease;
+}
+
+.shadow-idle {
+    left: 50%;
+}
+
+.shadow-push {
+    left: 56%;
+    width: calc(142px * var(--scale));
+    transform: translateX(-50%) skewX(-12deg);
+}
+
+.shadow-pull {
+    left: 43%;
+    width: calc(132px * var(--scale));
+    transform: translateX(-50%) skewX(12deg);
+}
+
 .character_spritesheet {
     width: calc(1300px * var(--scale));
     height: calc(1020px * var(--scale));
     position: absolute;
+    z-index: 1;
     animation: spriteAnimation 1s steps(5) infinite;
 }
 
@@ -392,5 +603,91 @@ html, body, #root {
 
     .carousel-container {
         transform: none;
+    }
+}
+
+@media (max-width: 980px) {
+    .hero-overlay {
+        inset: 0.75rem;
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .player-card {
+        max-width: 390px;
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 0.75rem;
+        padding: 0.6rem;
+    }
+
+    .player-avatar {
+        width: 64px;
+        height: 64px;
+    }
+
+    .player-name {
+        font-size: 1.3rem;
+    }
+
+    .player-role,
+    .player-meter {
+        font-size: 0.68rem;
+    }
+
+    .player-meter {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .player-meter > span:last-child {
+        display: none;
+    }
+
+    .hero-copy {
+        position: relative;
+        top: auto;
+        left: auto;
+        grid-column: 1;
+        justify-self: start;
+        max-width: 520px;
+        width: min(100%, 520px);
+        text-align: left;
+        transform: none;
+    }
+
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-copy h1,
+    .hero-copy p {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 640px) {
+    :root {
+        --scale: 0.38;
+        --carousel-offset: 260px;
+    }
+
+    .hero-copy h1 {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-copy p:not(.hero-kicker) {
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .hero-actions {
+        gap: 0.65rem;
+        margin-top: 1rem;
+    }
+
+    .hero-button {
+        min-width: 126px;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.86rem;
     }
 }
