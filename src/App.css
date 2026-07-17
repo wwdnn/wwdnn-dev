@@ -13,7 +13,7 @@ html, body, #root {
 
 :root {
     --scale: 0.5;
-    --carousel-offset: 460px;
+    --carousel-offset: 420px;
 
     --font-display: "Fredoka", sans-serif;
     --font-body: "Nunito", sans-serif;
@@ -49,23 +49,31 @@ html, body, #root {
 }
 
 .carousel-container {
+    position: relative;
+    z-index: 1;
     height: 100vh;
     display: grid;
     grid-template-rows: 1fr auto;
     justify-items: center;
     padding-bottom: 1.5rem;
     overflow: hidden;
+    /* content drifts slightly opposite the layers for depth */
+    transform: translate3d(
+        calc(var(--mx, 0) * -6px),
+        calc(var(--my, 0) * -3px),
+        0
+    );
 }
 
 .cards-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 88%;
 }
 
 .card-position {
     position: absolute;
-    top: 50%;
+    top: 85%;
     left: 50%;
 }
 
@@ -87,33 +95,28 @@ html, body, #root {
     flex-direction: column;
     gap: 1rem;
 
-    background: rgb(var(--rgb-surface) / var(--glass-bg-alpha));
-    border: 1px solid rgb(var(--rgb-surface) / var(--glass-border-alpha));
+    background: rgb(var(--rgb-surface) / 0.72);
+    border: 1px solid rgb(var(--rgb-primary) / 0.25);
     border-radius: var(--radius-lg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
     box-shadow: 0 var(--glass-shadow-y) var(--glass-shadow-spread)
         rgb(var(--rgb-slate-deep) / var(--glass-shadow-alpha));
 }
 
 .card-active {
     transform: translate(-50%, -50%) translateX(calc(var(--offset) * var(--carousel-offset))) scale(1);
-    --glass-bg-alpha: 0.2;
-    --glass-border-alpha: 0.38;
-    --glass-blur: 18px;
     --glass-shadow-alpha: 0.18;
     --glass-shadow-y: 24px;
     --glass-shadow-spread: 56px;
+    background: rgb(var(--rgb-surface) / 0.82);
+    border-color: rgb(var(--rgb-primary) / 0.7);
 
 
     position: relative;
 }
 
 .card-inactive {
-    --glass-bg-alpha: 0.08;
-    --glass-border-alpha: 0.14;
     --glass-shadow-alpha: 0.06;
-    filter: saturate(0.7);
+    filter: saturate(0.9);
 }
 
 .card-preview {
@@ -122,8 +125,8 @@ html, body, #root {
     place-items: center;
     border-radius: var(--radius-md);
     overflow: hidden;
-    background: rgb(var(--rgb-surface) / 0.1);
-    border: 1px solid rgb(var(--rgb-surface) / 0.18);
+    background: rgb(var(--rgb-surface) / 0.28);
+    border: 1px solid rgb(var(--rgb-primary) / 0.16);
     box-shadow: inset 0 1px 0 rgb(var(--rgb-surface) / 0.3);
 }
 
@@ -194,10 +197,8 @@ html, body, #root {
     gap: 1rem;
     padding: 0.625rem 1.25rem;
     border-radius: var(--radius-pill);
-    background: rgb(var(--rgb-surface) / var(--glass-bg-alpha));
-    border: 1px solid rgb(var(--rgb-surface) / var(--glass-border-alpha));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    background: rgb(var(--rgb-surface) / 0.74);
+    border: 1px solid rgb(var(--rgb-primary) / 0.12);
     box-shadow: 0 8px 24px rgb(var(--rgb-slate-deep) / var(--glass-shadow-alpha));
     z-index: 10;
 }
@@ -310,3 +311,86 @@ html, body, #root {
         bottom: -4px;
     }
 } */
+
+/* COMPONENT PARALLAX */
+.parallax {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.parallax-sky-fallback {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(#83bbff 0%, #dff5ff 58%, #f5fbff 100%);
+    z-index: -1;
+}
+
+.parallax-layer {
+    position: absolute;
+    inset: 0;
+    background-image: var(--img);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+    will-change: transform;
+    transform:
+        translate3d(
+            calc(var(--mx, 0) * var(--depth) * 4px),
+            calc(var(--my, 0) * var(--depth) * 2px + var(--layer-y, 0px)),
+            0
+        )
+        scale(1.03);
+    transform-origin: center;
+}
+
+.parallax-layer.is-sky {
+    z-index: 1;
+    background-size: cover;
+    height: 54vh;
+    bottom: auto;
+    -webkit-mask-image: linear-gradient(#000 0 68%, transparent 100%);
+    mask-image: linear-gradient(#000 0 68%, transparent 100%);
+}
+
+.parallax-layer.is-horizon {
+    --layer-y: -5vh;
+    background-size: 100% 135%;
+    background-position: center bottom;
+}
+
+.parallax-layer.is-float-ui {
+    opacity: 0.55;
+}
+
+.parallax-layer.is-foreground {
+    --layer-y: 20vh;
+}
+
+.parallax-floor {
+    position: absolute;
+    left: -8vw;
+    right: -8vw;
+    top: 75vh;
+    height: 50vh;
+    z-index: 2;
+    opacity: 0.7;
+    background:
+        linear-gradient(rgb(112 137 196 / 0.55) 1px, transparent 1px) 0 0 / 100% 44px,
+        linear-gradient(90deg, rgb(112 137 196 / 0.45) 1px, transparent 1px) center / 84px 100%;
+    transform: perspective(520px) rotateX(70deg);
+    transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .parallax-layer {
+        animation: none;
+        transform: none;
+    }
+
+    .carousel-container {
+        transform: none;
+    }
+}
