@@ -1,8 +1,27 @@
+import { useEffect, useRef } from "react";
+
 export function Card({ project, isActive, children }) {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (isActive) video.play().catch(() => {});
+        else video.pause();
+    }, [isActive]);
+
     return (
         <div className={`card ${isActive ? "card-active" : "card-inactive"}`}>
             <div className="card-preview">
-                <div className="card-icon" style={{ background: isActive ? project.accent : undefined }} />
+                <video
+                    ref={videoRef}
+                    className="card-video"
+                    src={project.video}
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                />
             </div>
 
             <h2 className="card-title">{project.title}</h2>

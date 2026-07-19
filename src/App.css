@@ -269,7 +269,7 @@ html, body, #root {
     transition: transform 650ms ease;
 
     width: 420px;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 5 / 4;
     padding: 2rem 1.75rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -308,6 +308,13 @@ html, body, #root {
     background: rgb(var(--rgb-surface) / 0.28);
     border: 1px solid rgb(var(--rgb-primary) / 0.16);
     box-shadow: inset 0 1px 0 rgb(var(--rgb-surface) / 0.3);
+}
+
+.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .card-icon {
@@ -700,7 +707,7 @@ html, body, #root {
 
     .card-preview {
         flex: 1 0 auto;
-        height: clamp(72px, 11vh, 96px);
+        height: clamp(110px, 16vh, 150px);
     }
 
     .card-title {
