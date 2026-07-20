@@ -1,4 +1,4 @@
-export function HeroOverlay() {
+export function HeroOverlay({ onOpenAbout }) {
     return (
         <section className="hero-overlay" aria-label="Portfolio introduction">
             {/* <aside className="player-card" aria-label="Profile card">
@@ -26,7 +26,7 @@ export function HeroOverlay() {
                 <p>Fullstack Developer</p>
                 <p>Turning ideas into impactful systems.</p>
                 <div className="hero-actions">
-                    <a className="hero-button hero-button-primary" href="#projects">About Me</a>
+                    <button className="hero-button hero-button-primary" type="button" onClick={onOpenAbout}>About Me</button>
                     <button className="hero-button" type="button" disabled>Download CV</button>
                 </div>
             </div>
