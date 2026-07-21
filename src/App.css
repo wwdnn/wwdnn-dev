@@ -655,7 +655,7 @@ html, body, #root {
     }
 
     .hero-overlay {
-        inset: 10rem 0.75rem auto;
+        inset: 5rem 0.75rem auto;
     }
 
     .hero-copy {
