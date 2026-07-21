@@ -1,3 +1,5 @@
+import cvFile from "../assets/portfolio/CV-Wildan Setya Nugraha.pdf";
+
 export function HeroOverlay({ onOpenAbout }) {
     return (
         <section className="hero-overlay" aria-label="Portfolio introduction">
@@ -27,7 +29,7 @@ export function HeroOverlay({ onOpenAbout }) {
                 <p>Turning ideas into impactful systems.</p>
                 <div className="hero-actions">
                     <button className="hero-button hero-button-primary" type="button" onClick={onOpenAbout}>About Me</button>
-                    <button className="hero-button" type="button" disabled>Download CV</button>
+                    <a className="hero-button" href={cvFile} download="CV-Wildan Setya Nugraha.pdf">Download CV</a>
                 </div>
             </div>
         </section>
